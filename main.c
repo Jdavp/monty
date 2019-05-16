@@ -1,8 +1,11 @@
 #include "monty.h"
 
-int pall(void);
-int push(int value_n);
-int search_fn(char *command, char *value_n);
+/**
+* main - entry fn
+* @argc: int count argv
+* @argv: char with args
+* Return: 1 success, 2 error
+*/
 int main(int argc, char *argv[])
 {
 	FILE *fd;
@@ -27,56 +30,68 @@ int main(int argc, char *argv[])
 
 		buffer = malloc(sizeof(char) * SIZEBUFFER + 1);
 		if (!buffer)
-			exit(98);
-
+			exit(2);
+		matrix[0] = '\0';
 		buffer[SIZEBUFFER] = '\0';
 		statusfd = getline(&buffer, &bufsize, fd);
 		while (statusfd != EOF)
 		{
 			command = strtok(buffer, " \n");
 			value_n = strtok(NULL, " \n");
-			if (strcmp(command, "push") == 0)
-				push(atoi(value_n));
-			else if (strcmp(command, "pall") == 0)
-				pall();
+			search_fn(command, value_n);
 			statusfd = getline(&buffer, &bufsize, fd);
 		}
 		free(buffer);
-		fclose (fd);
+		fclose(fd);
 	}
-	return (0);
+	return (1);
 }
 
+/**
+* search_fn - search function
+* @command: arg to search fn
+* @value_n: add value n
+* Return: 1 success, 2 error
+*/
 int search_fn(char *command, char *value_n)
 {
 	if (strcmp(command, "push") == 0)
-		push(atoi(value_n));
+		return (push(atoi(value_n)));
 	else if (strcmp(command, "pall") == 0)
-		pall();
-	return (0);
+		return (pall());
+	return (1);
 }
 
+/**
+* push - fn to add node at head
+* @value_n: add value n
+* Return: 1 success, 2 error
+*/
 int push(int value_n)
 {
 	int i = 0;
 
 	while (matrix[i] != '\0')
-	{
 		i++;
-	}
 	matrix[i] = value_n;
-	matrix[i+1] = '\0';
-	return (0);
+	i++;
+	matrix[i] = '\0';
+	return (1);
 
 }
+
+/**
+* pall - fn print all nodes of head
+* Return: 1 success, 2 error
+*/
 int pall(void)
 {
 	int i = 0;
-	
+
 	while (matrix[i] != '\0')
 		i++;
 
-	for (i = i - 1; i >= 0; i--)
+	for (i = i - 1; i >= -1; i--)
 		printf("%d\n", matrix[i]);
-	return (0);
+	return (1);
 }
