@@ -1,5 +1,12 @@
 #ifndef MONTY_H
 #define MONTY_H
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#define SIZEBUFFER 1024
+
+int matrix[1024];
+
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
