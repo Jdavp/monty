@@ -95,7 +95,7 @@ int (*search_fn(void))()
 		{"swap", swap},
 		{"add", add},
 		{"nop", nop},
-		{"sup", sup},
+		{"sub", sub},
 		{"div", div2},
 		{"mul", mul},
 		{"mod", mod},
