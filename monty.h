@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <limits.h>
 #define SIZEBUFFER 1024
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -42,12 +43,14 @@ typedef struct st
 
 typedef struct s_error
 {
+	char *buffer;
 	char *step;
 	char *filename;
 	FILE *fd;
 	int argc;
 	char *command;
-	char *value_n; 
+	char *value_n;
+	int len_value_n; 
 	int nline;
 	int matrix[1024];
 	char order; /* s = stack, q = queue */
@@ -55,6 +58,9 @@ typedef struct s_error
 	int cr; /* get last instance */
 } s_errors;
 s_errors e;
+int check_request(void);
+int __quit(void);
+int pint(void);
 int empty(void);
 int pall(void);
 int push(void);
