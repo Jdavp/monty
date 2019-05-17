@@ -35,12 +35,34 @@ char *opcode;
 void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+/**
+ *struct st - stored functions
+ *@name: name of the function
+ *@f: function
+ *
+ */
 typedef struct st
 {
 	char *name;
 	int (*f)();
 } st_t;
 
+/**
+ *struct s_error - stores all the main variables of the program
+ *@buffer: space to store the input from the file
+ *@step: indentifies the place in the program
+ *@filename: name of the file
+ *@fd: file descriptor
+ *@argc: number of arguments
+ *@command: order given in the document
+ *@value_n: value number to add
+ *@len_value_n: length of the value
+ *@nline: line number
+ *@matrix: scale vector
+ *@order: valuets if is stack or queue
+ *@nel: number of nodes
+ *@cr: store last instance
+ */
 typedef struct s_error
 {
 	char *buffer;
@@ -50,12 +72,12 @@ typedef struct s_error
 	int argc;
 	char *command;
 	char *value_n;
-	int len_value_n; 
+	int len_value_n;
 	int nline;
 	int matrix[1024];
-	char order; /* s = stack, q = queue */
-	int nel; /* number of nodes */
-	int cr; /* get last instance */
+	char order;
+	int nel;
+	int cr;
 } s_errors;
 s_errors e;
 int check_request(void);
