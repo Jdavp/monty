@@ -64,5 +64,9 @@ int pint(void);
 int empty(void);
 int pall(void);
 int push(void);
+int pop(void);
+int swap(void);
+int add(void);
+int nop(void);
 int (*search_fn(void))();
 #endif /* _MONTY_H */
