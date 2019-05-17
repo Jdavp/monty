@@ -14,8 +14,8 @@ int div2(void)
 		if (tmp != 0)
 		{
 			e.matrix[e.nel - 1] = '\0';
-			e.matrix[e.nel - 2] /= tmp;
-			e.nel -= 1;
+			e.matrix[e.nel - 2] = e.matrix[e.nel - 2] / tmp;
+			e.nel = e.nel - 1;
 			return (0);
 		}
 		fprintf(stderr, "L%d: division by zero\n", e.nline);
