@@ -15,6 +15,6 @@ int mul(void)
 		e.nel = e.nel - 1;
 		return (0);
 }
-fprintf(stderr, "L%d: can't mul, stack too short,\n", e.nline);
-return (EXIT_FAILURE);
+	fprintf(stderr, "L%d: can't mul, stack too short\n", e.nline);
+	return (EXIT_FAILURE);
 }
