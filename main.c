@@ -1,7 +1,7 @@
 #include "monty.h"
 /**
 * __quit - free allocs and file descriptor and exit
-* Return 0 is successfull and 1 is EXIT_FAILURE  
+* Return 0 is successfull and 1 is EXIT_FAILURE
 */
 int __quit(void)
 {
@@ -15,19 +15,19 @@ int __quit(void)
 }
 /**
 * check_request - validate common errors
-* Return 0 is successfull and 1 is EXIT_FAILURE  
+* Return 0 is successfull and 1 is EXIT_FAILURE
 */
 int check_request(void)
 {
-	if (strcmp(e.step,"args") == 0 && e.argc != 2)
-        {
+	if (strcmp(e.step, "args") == 0 && e.argc != 2)
+	{
 		fprintf(stderr, "USAGE: monty file\n");
-                return (EXIT_FAILURE); 
+		return (EXIT_FAILURE);
 	}
-	if (strcmp(e.step,"file") == 0 && e.fd == NULL)
-        {
+	if (strcmp(e.step, "file") == 0 && e.fd == NULL)
+	{
 		fprintf(stderr, "Error: Can't open file %s\n", e.filename);
-                return (EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	}
 	return (0);
 }
@@ -74,7 +74,6 @@ int main(int argc, char *argv[])
 			if (e.cr != 0)
 				__quit();
 			e.cr = (*search_fn())();
-			/*printf("cr is %d\n", e.cr);*/
 			if (e.cr != 0)
 				__quit();
 			statusfd = getline(&e.buffer, &bufsize, e.fd);
@@ -93,21 +92,20 @@ int (*search_fn(void))()
 {
 	int j = 0;
 	st_t lf[] = {
-                {"push", push},
-                {"pall", pall},
-                {"pint", pint},
-                {"pop", pop},
-                {"swap", swap},
-                {"add", add},
-                {"nop", nop},
+		{"push", push},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{"add", add},
+		{"nop", nop},
 		{"sup", sup},
 		{"div", div2},
 		{"mul", mul},
 		{"mod", mod},
-                {NULL, NULL}
-        };
+		{NULL, NULL}
+	};
 
-	/*printf("fn is %s \n", e.command);*/
 	while (lf[j].name != NULL && e.command != NULL)
 	{
 		if (strcmp(lf[j].name, e.command) == 0)
@@ -115,57 +113,4 @@ int (*search_fn(void))()
 		j++;
 	}
 	return (empty);
-}
-
-/**
-* swap - fn swaps the top two elements of the stack
-* Return: 0 succesfull or EXIT_FAILURE failed
-*/
-int swap(void)
-{
-	int tmp;
-	if (e.nel > 1)
-	{
-		tmp = e.matrix[e.nel - 1];
-		e.matrix[e.nel - 1] = e.matrix[e.nel - 2];
-		e.matrix[e.nel - 2] = tmp;
-		return (0);
-	}
-	fprintf(stderr, "L%d: can't swap, stack too short\n", e.nline);
-	return (EXIT_FAILURE);
-}
-/**
-* add - fn adds the top two elements of the stack
-* Return: 0 succesfull or EXIT_FAILURE failed
-*/
-int add(void)
-{
-	int tmp;
-	if (e.nel > 1)
-	{
-		tmp = e.matrix[e.nel - 1];
-		e.matrix[e.nel - 1] = '\0';
-		e.matrix[e.nel - 2] += tmp;
-		e.nel -=1;
-		return (0);
-	}
-	fprintf(stderr, "L%d: can't add, stack too short\n", e.nline);
-	return (EXIT_FAILURE);
-}
-/**
-* nop - fn swaps the top two elements of the stack
-* Return: 0 succesfull or EXIT_FAILURE failed
-*/
-int nop(void)
-{
-	return (0);
-}
-/**
-* empty - fn print error when not find functios allow
-* Return: EXIT_FAILURE
-*/
-int empty(void)
-{
-	fprintf(stderr, "L%d: unknown instruction %s\n", e.nline, e.command);
-	return (EXIT_FAILURE);
 }
