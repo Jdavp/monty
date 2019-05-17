@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
 * div2 - fn divides the second top element of the stack by the top element of the stack.
 * Return: 0 succesfull or EXIT_FAILURE failed

@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
 * mod - fn computes the rest of the division of the second top element of the stack.
 * Return: 0 succesfull or EXIT_FAILURE failed

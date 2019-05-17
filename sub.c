@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
 * sup - fn subtracts the top element of the stack from the second top
 * Return: 0 succesfull or EXIT_FAILURE failed

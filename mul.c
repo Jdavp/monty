@@ -1,5 +1,4 @@
 #include "monty.h"
-
 /**
 * mul - fn multiplies the second top element of the stack with the top element of the stack.
 * Return: 0 succesfull or EXIT_FAILURE failed
