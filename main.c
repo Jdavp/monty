@@ -48,8 +48,7 @@ int main(int argc, char *argv[])
 	e.cr = check_request();
 	e.order = 's';
 	if (e.cr == 0)
-	{
-		e.filename = argv[1];
+	{e.filename = argv[1];
 		e.fd = fopen(e.filename, "r");
 		e.step = "file";
 		e.nline = 0;
@@ -70,9 +69,6 @@ int main(int argc, char *argv[])
 			e.step = "getline";
 			e.value_n = strtok(NULL, " \n");
 			e.nline = i;
-			e.cr = check_request();
-			if (e.cr != 0)
-				__quit();
 			e.cr = (*search_fn())();
 			if (e.cr != 0)
 				__quit();

@@ -1,4 +1,4 @@
-#include <monty.h>
+#include "monty.h"
 
 /**
  * add - fn adds the top two elements of the stack
@@ -7,7 +7,6 @@
 int add(void)
 {
 	int tmp;
-
 
 	if (e.nel > 1)
 	{
