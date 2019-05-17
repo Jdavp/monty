@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 */
 int (*search_fn(void))()
 {
-	int j = 0, ef = 0;
+	int j = 0;
 	st_t lf[] = {
                 {"push", push},
                 {"pall", pall},
@@ -82,7 +82,7 @@ int (*search_fn(void))()
         };
 
 	printf("fn is %s \n", e.command);
-	while (lf[j].name != NULL)
+	while (lf[j].name != NULL && e.command != NULL)
 	{
 		if (strcmp(lf[j].name, e.command) == 0)
 			return (lf[j].f);
