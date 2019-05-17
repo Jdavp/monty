@@ -100,6 +100,10 @@ int (*search_fn(void))()
                 {"swap", swap},
                 {"add", add},
                 {"nop", nop},
+		{"sup", sup},
+		{"div", div2},
+		{"mul", mul},
+		{"mod", mod},
                 {NULL, NULL}
         };
 
