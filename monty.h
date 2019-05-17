@@ -90,7 +90,7 @@ int pop(void);
 int swap(void);
 int add(void);
 int nop(void);
-int sup(void);
+int sub(void);
 int div2(void);
 int mul(void);
 int mod(void);
