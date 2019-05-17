@@ -1,4 +1,10 @@
 #include "monty.h"
+int check_request();
+int check_request()
+{
+	printf("check_request >>currently is pass, is need update file errors\n");
+	return (1);
+}
 
 /**
 * main - entry fn
@@ -8,74 +14,92 @@
 */
 int main(int argc, char *argv[])
 {
-	FILE *fd;
+	int  i = 0;
 	size_t bufsize = SIZEBUFFER;
 	ssize_t statusfd;
-	char *filename;
 	char *buffer;
-	char *command;
-	char *value_n;
 
-	if (argc == 2)
+	e.step = "args";
+	e.argc = argc;
+	e.cr = check_request();
+	e.order = 's';
+	if (e.cr == 1)
 	{
-		filename = argv[1];
-		fd = fopen(filename, "r");
-		if (fd == NULL)
-		{
-			perror("Error: Can't open file ");
-			perror(filename);
-			perror("\n");
-			exit(EXIT_FAILURE);
-		}
+		e.filename = argv[1];
+		e.fd = fopen(e.filename, "r");
+		e.step = "file";
+		e.nline = 0;
+		e.cr = check_request();
+		if (e.cr != 1)
+			exit(e.cr);
 
 		buffer = malloc(sizeof(char) * SIZEBUFFER + 1);
 		if (!buffer)
 			exit(2);
-		matrix[0] = '\0';
+		e.nel = 0;
+		e.matrix[0] = '\0';
 		buffer[SIZEBUFFER] = '\0';
-		statusfd = getline(&buffer, &bufsize, fd);
+		statusfd = getline(&buffer, &bufsize, e.fd);
 		while (statusfd != EOF)
 		{
-			command = strtok(buffer, " \n");
-			value_n = strtok(NULL, " \n");
-			search_fn(command, value_n);
-			statusfd = getline(&buffer, &bufsize, fd);
+			i++;
+			e.command = strtok(buffer, " \n");
+			e.step = "getline";
+			e.value_n = strtok(NULL, " \n");
+			e.nline = i;
+			e.cr = check_request();
+			if (e.cr != 1)
+				exit(e.cr);
+			e.cr = (*search_fn())();
+			if (e.cr != 1)
+				exit(e.cr);
+			statusfd = getline(&buffer, &bufsize, e.fd);
 		}
 		free(buffer);
-		fclose(fd);
+		fclose(e.fd);
 	}
+	else
+		exit(e.cr);
 	return (1);
 }
 
 /**
 * search_fn - search function
-* @command: arg to search fn
-* @value_n: add value n
 * Return: 1 success, 2 error
 */
-int search_fn(char *command, char *value_n)
+int (*search_fn(void))()
 {
-	if (strcmp(command, "push") == 0)
-		return (push(atoi(value_n)));
-	else if (strcmp(command, "pall") == 0)
-		return (pall());
-	return (1);
+	int j = 0, ef = 0;
+	st_t lf[] = {
+                {"push", push},
+                {"pall", pall},
+                /*{"pint", pint},
+                {"pop", pop},
+                {"swap", swap},
+                {"add", add},
+                {"nop", nop},*/
+                {NULL, NULL}
+        };
+
+	printf("fn is %s \n", e.command);
+	while (lf[j].name != NULL)
+	{
+		if (strcmp(lf[j].name, e.command) == 0)
+			return (lf[j].f);
+		j++;
+	}
+	return (empty);
 }
 
 /**
 * push - fn to add node at head
-* @value_n: add value n
 * Return: 1 success, 2 error
 */
-int push(int value_n)
+int push(void)
 {
-	int i = 0;
-
-	while (matrix[i] != '\0')
-		i++;
-	matrix[i] = value_n;
-	i++;
-	matrix[i] = '\0';
+	e.matrix[e.nel] = atoi(e.value_n);
+	e.nel += 1;
+	e.matrix[e.nel + 1] = '\0';
 	return (1);
 
 }
@@ -86,12 +110,27 @@ int push(int value_n)
 */
 int pall(void)
 {
-	int i = 0;
-
-	while (matrix[i] != '\0')
-		i++;
-
-	for (i = i - 1; i >= -1; i--)
-		printf("%d\n", matrix[i]);
+	int j;
+	
+	if (e.order == 'q')
+	{
+		for (j = 0 ; j < e.nel; j++)
+			printf("%d\n", e.matrix[j]);
+	}
+	else
+	{
+		for (j = e.nel - 1; j >= 0; j--)
+			printf("%d\n", e.matrix[j]);
+	}
 	return (1);
+}
+
+/**
+* empty - fn print error when not find functios allow
+* Return: EXIT_FAILURE
+*/
+int empty(void)
+{
+	fprintf(e.fd, "L%d: unknown instruction %s", e.nline, e.command);
+	return (EXIT_FAILURE);
 }
