@@ -1,5 +1,10 @@
-#ifndef MONTY_H
-#define MONTY_H
+#ifndef _MONTY_H
+#define _MONTY_H
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
+#include <limits.h>
+#define SIZEBUFFER 1024
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -11,9 +16,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+int n;
+struct stack_s *prev;
+struct stack_s *next;
 } stack_t;
 
 /**
@@ -26,7 +31,38 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
+char *opcode;
+void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
-#endif 
+
+typedef struct st
+{
+	char *name;
+	int (*f)();
+} st_t;
+
+typedef struct s_error
+{
+	char *buffer;
+	char *step;
+	char *filename;
+	FILE *fd;
+	int argc;
+	char *command;
+	char *value_n;
+	int len_value_n; 
+	int nline;
+	int matrix[1024];
+	char order; /* s = stack, q = queue */
+	int nel; /* number of nodes */
+	int cr; /* get last instance */
+} s_errors;
+s_errors e;
+int check_request(void);
+int __quit(void);
+int pint(void);
+int empty(void);
+int pall(void);
+int push(void);
+int (*search_fn(void))();
+#endif /* _MONTY_H */
