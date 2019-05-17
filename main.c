@@ -1,7 +1,7 @@
 #include "monty.h"
 /**
 * __quit - free allocs and file descriptor and exit
-* Return 0 is successfull and 1 is EXIT_FAILURE
+* Return: 0 is successfull and 1 is EXIT_FAILURE
 */
 int __quit(void)
 {
@@ -15,7 +15,7 @@ int __quit(void)
 }
 /**
 * check_request - validate common errors
-* Return 0 is successfull and 1 is EXIT_FAILURE
+* Return: 0 is successfull and 1 is EXIT_FAILURE
 */
 int check_request(void)
 {
