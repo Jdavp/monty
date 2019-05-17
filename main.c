@@ -19,7 +19,16 @@ int __quit(void)
 */
 int check_request(void)
 {
-	printf("check_request >>currently is pass, is need update file errors\n");
+	if (strcmp(e.step,"args") == 0 && e.argc != 2)
+        {
+		fprintf(stderr, "USAGE: monty file\n");
+                return (EXIT_FAILURE); 
+	}
+	if (strcmp(e.step,"file") == 0 && e.fd == NULL)
+        {
+		fprintf(stderr, "Error: Can't open file %s\n", e.filename);
+                return (EXIT_FAILURE);
+	}
 	return (0);
 }
 /**
@@ -65,7 +74,7 @@ int main(int argc, char *argv[])
 			if (e.cr != 0)
 				__quit();
 			e.cr = (*search_fn())();
-			printf("cr is %d\n", e.cr);
+			/*printf("cr is %d\n", e.cr);*/
 			if (e.cr != 0)
 				__quit();
 			statusfd = getline(&e.buffer, &bufsize, e.fd);
@@ -94,7 +103,7 @@ int (*search_fn(void))()
                 {NULL, NULL}
         };
 
-	printf("fn is %s \n", e.command);
+	/*printf("fn is %s \n", e.command);*/
 	while (lf[j].name != NULL && e.command != NULL)
 	{
 		if (strcmp(lf[j].name, e.command) == 0)
@@ -123,6 +132,7 @@ int push(void)
 			return (0);
 		}
 	}
+	fprintf(stderr, "L%d: usage: push integer\n", e.nline);
 	return (EXIT_FAILURE);
 }
 

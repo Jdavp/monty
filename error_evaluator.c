@@ -6,6 +6,7 @@
 */
 int error_evaluator(void)
 {
+/*
 	int new_int = 0, comparepint = 0, comparepop = 0;
 
 	if (e.argc != 2)
@@ -41,5 +42,6 @@ int error_evaluator(void)
 	{fprintf("L %d: can't pop an empty stack", nline);
 		return (EXIT_FAILURE); }
 
+	*/
 	return (0);
 }
