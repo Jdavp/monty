@@ -87,10 +87,10 @@ int (*search_fn(void))()
                 {"push", push},
                 {"pall", pall},
                 {"pint", pint},
-                /*{"pop", pop},
+                {"pop", pop},
                 {"swap", swap},
                 {"add", add},
-                {"nop", nop},*/
+                {"nop", nop},
                 {NULL, NULL}
         };
 
@@ -160,6 +160,72 @@ int pint(void)
 		return (0);
 	}
 	fprintf(stderr, "L%d: can't pint, stack empty\n", e.nline);
+	return (EXIT_FAILURE);
+}
+/**
+* pop - fn remove last node that add
+* Return: 0 succesfull or EXIT_FAILURE failed
+*/
+int pop(void)
+{
+	if (e.nel > 0)
+	{
+		e.matrix[e.nel - 1] = '\0';
+		e.nel -=1;
+		return (0);
+	}
+	fprintf(stderr, "L%d: can't pop an empty stack\n", e.nline);
+	return (EXIT_FAILURE);
+}
+/**
+* swap - fn swaps the top two elements of the stack
+* Return: 0 succesfull or EXIT_FAILURE failed
+*/
+int swap(void)
+{
+	int tmp;
+	if (e.nel > 1)
+	{
+		tmp = e.matrix[e.nel - 1];
+		e.matrix[e.nel - 1] = e.matrix[e.nel - 2];
+		e.matrix[e.nel - 2] = tmp;
+		return (0);
+	}
+	fprintf(stderr, "L%d: can't swap, stack too short\n", e.nline);
+	return (EXIT_FAILURE);
+}
+/**
+* add - fn adds the top two elements of the stack
+* Return: 0 succesfull or EXIT_FAILURE failed
+*/
+int add(void)
+{
+	int tmp;
+	if (e.nel > 1)
+	{
+		tmp = e.matrix[e.nel - 1];
+		e.matrix[e.nel - 1] = e.matrix[e.nel - 2];
+		e.matrix[e.nel - 2] = tmp;
+		return (0);
+	}
+	fprintf(stderr, "L%d: can't swap, stack too short\n", e.nline);
+	return (EXIT_FAILURE);
+}
+/**
+* nop - fn swaps the top two elements of the stack
+* Return: 0 succesfull or EXIT_FAILURE failed
+*/
+int nop(void)
+{
+	int tmp;
+	if (e.nel > 1)
+	{
+		tmp = e.matrix[e.nel - 1];
+		e.matrix[e.nel - 1] = e.matrix[e.nel - 2];
+		e.matrix[e.nel - 2] = tmp;
+		return (0);
+	}
+	fprintf(stderr, "L%d: can't swap, stack too short\n", e.nline);
 	return (EXIT_FAILURE);
 }
 /**
