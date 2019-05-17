@@ -204,11 +204,12 @@ int add(void)
 	if (e.nel > 1)
 	{
 		tmp = e.matrix[e.nel - 1];
-		e.matrix[e.nel - 1] = e.matrix[e.nel - 2];
-		e.matrix[e.nel - 2] = tmp;
+		e.matrix[e.nel - 1] = '\0';
+		e.matrix[e.nel - 2] += tmp;
+		e.nel -=1;
 		return (0);
 	}
-	fprintf(stderr, "L%d: can't swap, stack too short\n", e.nline);
+	fprintf(stderr, "L%d: can't add, stack too short\n", e.nline);
 	return (EXIT_FAILURE);
 }
 /**
@@ -217,16 +218,7 @@ int add(void)
 */
 int nop(void)
 {
-	int tmp;
-	if (e.nel > 1)
-	{
-		tmp = e.matrix[e.nel - 1];
-		e.matrix[e.nel - 1] = e.matrix[e.nel - 2];
-		e.matrix[e.nel - 2] = tmp;
-		return (0);
-	}
-	fprintf(stderr, "L%d: can't swap, stack too short\n", e.nline);
-	return (EXIT_FAILURE);
+	return (0);
 }
 /**
 * empty - fn print error when not find functios allow
